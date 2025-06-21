@@ -16,7 +16,9 @@ app.use(cors({
     'https://brilliant-naiad-315200.netlify.app', // Your Netlify URL
     'https://mern-bookstore-backend-amt0.onrender.com' // Your backend URL
   ],
-  credentials: true
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 app.use(express.json({ limit: '50mb' }));
