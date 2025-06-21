@@ -39,7 +39,7 @@ function Library() {
       setDownloading(bookId);
       
       // Use proxy URL instead of direct backend URL
-      const response = await fetch(`https://mern-bookstore-backend-amt0.onrender.com/api/auth/login/api/books/${bookId}`, {
+      const response = await fetch(`https://mern-bookstore-backend-amt0.onrender.com/api/books/${bookId}`, {
         method: 'GET',
         headers: { 'Accept': 'application/pdf' },
       });
