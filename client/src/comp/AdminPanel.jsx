@@ -21,7 +21,7 @@ function AdminPanel() {
 
   const fetchBooks = async () => {
     try {
-      const response = await fetch(`${config.API_BASE_URL}/api/books`);
+      const response = await fetch(`https://mern-bookstore-backend-amt0.onrender.com/api/auth/login/api/books`);
       const data = await response.json();
       setBooks(data);
     } catch (err) {
@@ -152,7 +152,7 @@ function AdminPanel() {
     }
 
     try {
-      const response = await fetch(`${config.API_BASE_URL}/api/books/${bookId}`, {
+      const response = await fetch(`https://mern-bookstore-backend-amt0.onrender.com/api/auth/login/api/books/${bookId}`, {
         method: 'DELETE'
       });
 
