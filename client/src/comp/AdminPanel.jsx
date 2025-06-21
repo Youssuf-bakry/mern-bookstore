@@ -135,7 +135,7 @@ function AdminPanel() {
         setUploadProgress(0);
       });
 
-      xhr.open('POST', '/api/books/upload');
+      xhr.open('POST', 'https://mern-bookstore-backend-amt0.onrender.com/api/books/upload');
       xhr.send(data);
 
     } catch (err) {
