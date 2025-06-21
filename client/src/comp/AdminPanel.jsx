@@ -152,7 +152,7 @@ function AdminPanel() {
     }
 
     try {
-      const response = await fetch(`https://mern-bookstore-backend-amt0.onrender.com/api/auth/login/api/books/${bookId}`, {
+      const response = await fetch(`https://mern-bookstore-backend-amt0.onrender.com/api/books/${bookId}`, {
         method: 'DELETE'
       });
 
