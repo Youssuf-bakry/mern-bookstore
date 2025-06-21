@@ -11,9 +11,11 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production' 
-    ? ['https://your-app-name.vercel.app', 'https://your-app-name.netlify.app'] 
-    : ['http://localhost:5173'],
+  origin: [
+    'http://localhost:5173',
+    'https://brilliant-naiad-315200.netlify.app', // Your Netlify URL
+    'https://mern-bookstore-backend-amt0.onrender.com' // Your backend URL
+  ],
   credentials: true
 }));
 
