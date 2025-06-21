@@ -296,4 +296,37 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+// test route
+router.get('/test-db', async (req, res) => {
+  try {
+    console.log('Testing database connection...');
+    
+    // Test basic connection
+    const dbState = mongoose.connection.readyState;
+    console.log('DB State:', dbState); // 1 = connected, 0 = disconnected
+    
+    // Test collection access
+    const bookCount = await Book.countDocuments();
+    console.log('Total books in database:', bookCount);
+    
+    // Test a simple query
+    const books = await Book.find().limit(1);
+    console.log('Sample book:', books[0]);
+    
+    res.json({
+      success: true,
+      dbState,
+      bookCount,
+      sampleBook: books[0],
+      message: 'Database connection working!'
+    });
+  } catch (error) {
+    console.error('Database test failed:', error);
+    res.status(500).json({
+      success: false,
+      error: error.message,
+      message: 'Database connection failed'
+    });
+  }
+});
 export default router;

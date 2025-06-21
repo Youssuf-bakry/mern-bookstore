@@ -29,7 +29,18 @@ if (!mongoose.connections[0].readyState) {
     useUnifiedTopology: true,
   });
 }
+// test after mongoose.connect()
+mongoose.connection.on('connected', () => {
+  console.log('✅ MongoDB connected successfully');
+});
 
+mongoose.connection.on('error', (err) => {
+  console.error('❌ MongoDB connection error:', err);
+});
+
+mongoose.connection.on('disconnected', () => {
+  console.log('⚠️ MongoDB disconnected');
+});
 // Routes
 app.use('/api/books', bookRoutes);
 app.use('/api/auth', authRoutes);
