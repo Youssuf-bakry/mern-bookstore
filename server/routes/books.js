@@ -175,6 +175,9 @@ router.get('/:id', async (req, res) => {
     
     downloadStream.on('error', (error) => {
       console.error('Download error:', error);
+
+
+      
       if (!res.headersSent) {
         res.status(500).send('Download failed: ' + error.message);
       }
@@ -254,6 +257,7 @@ router.put('/:id', async (req, res) => {
 });
 
 export default router;
+
 // import express from 'express';
 // import mongoose from 'mongoose';
 // import Book from '../models/Book.js';
