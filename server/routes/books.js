@@ -1,92 +1,3 @@
-// import express from 'express';
-// import mongoose from 'mongoose';
-// import Book from '../models/Book.js';
-// import { GridFSBucket, ObjectId } from 'mongodb';
-// import multer from 'multer';
-// import { GridFSStorage } from 'multer-gridfs-storage';
-
-// const router = express.Router();
-
-// router.get('/', async (req, res) => {
-//   const books = await Book.find().sort({ createdAt: -1 });
-//   res.json(books);
-// });
-
-// router.get('/:id', async (req, res) => {
-//   try {
-//     console.log('Requested book ID:', req.params.id);
-    
-//     const book = await Book.findById(req.params.id);
-//     if (!book) {
-//       console.log('Book not found');
-//       return res.status(404).send('Book not found');
-//     }
-
-//     if (!book.fileId) {
-//       console.log('Book has no fileId');
-//       return res.status(404).send('PDF file not found');
-//     }
-
-//     const client = mongoose.connection.getClient();
-//     const db = client.db();
-//     const bucket = new GridFSBucket(db, { bucketName: 'books' });
-    
-//     console.log('Looking for fileId:', book.fileId);
-
-//     // Check if file exists
-//     const fileDoc = await db.collection('books.files').findOne({ _id: book.fileId });
-//     if (!fileDoc) {
-//       console.log('File not found in GridFS');
-//       return res.status(404).send('File not found in storage');
-//     }
-    
-//     console.log('Found file:', fileDoc.filename, 'Size:', fileDoc.length);
-
-//     // Buffer the entire file
-//     const downloadStream = bucket.openDownloadStream(book.fileId);
-//     const chunks = [];
-    
-//     downloadStream.on('data', (chunk) => {
-//       chunks.push(chunk);
-//       console.log('Received chunk:', chunk.length);
-//     });
-    
-//     downloadStream.on('error', (error) => {
-//       console.error('Download error:', error);
-//       if (!res.headersSent) {
-//         res.status(500).send('Download failed: ' + error.message);
-//       }
-//     });
-    
-//     downloadStream.on('end', () => {
-//       const buffer = Buffer.concat(chunks);
-//       console.log('Total buffer size:', buffer.length);
-      
-//       if (buffer.length === 0) {
-//         console.log('ERROR: Buffer is empty!');
-//         return res.status(500).send('File is empty');
-//       }
-      
-//       res.set({
-//         'Content-Type': 'application/pdf',
-//         'Content-Length': buffer.length.toString(),
-//         'Content-Disposition': `attachment; filename="${encodeURIComponent(fileDoc.filename)}"`,
-//       });
-      
-//       res.send(buffer);
-//       console.log('File sent successfully');
-//     });
-    
-//   } catch (err) {
-//     console.error('Server error:', err);
-//     if (!res.headersSent) {
-//       res.status(500).send('Server error: ' + err.message);
-//     }
-//   }
-// });
-
-// export default router;
-
 import express from 'express';
 import mongoose from 'mongoose';
 import Book from '../models/Book.js';
@@ -107,7 +18,7 @@ const upload = multer({
     }
   },
   limits: {
-    fileSize: 50 * 1024 * 1024 // 50MB limit
+    fileSize: 100 * 1024 * 1024 // 50MB limit
   }
 });
 
