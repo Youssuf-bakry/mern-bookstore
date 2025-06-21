@@ -19,7 +19,7 @@ function Library() {
     if (hasFetched.current) return;
     hasFetched.current = true;
 
-    fetch(`https://mern-bookstore-backend-amt0.onrender.com/api/auth/login/api/books`)
+    fetch('https://mern-bookstore-backend-amt0.onrender.com/api/books')
       .then(res => res.json())
       .then(data => {
         setBooks(data);
