@@ -469,7 +469,7 @@ function AdminPanel() {
                           onClick={() => handleDelete(book._id, book.title)}
                           title="Delete book"
                         >
-                          🗑️
+                          🗑️ Delete
                         </button>
                       </div>
                     </>
