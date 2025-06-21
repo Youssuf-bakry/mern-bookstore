@@ -12,7 +12,7 @@ const app = express();
 // Middleware
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
-    ? ['https://your-app-name.vercel.app'] 
+    ? ['https://your-app-name.vercel.app', 'https://your-app-name.netlify.app'] 
     : ['http://localhost:5173'],
   credentials: true
 }));
@@ -37,13 +37,12 @@ app.get('/api/health', (req, res) => {
   res.json({ message: 'Server is running!', timestamp: new Date().toISOString() });
 });
 
-// Always export for Vercel (unconditional)
+// Always export for Vercel compatibility
 export default app;
 
-// Only start server in development
-if (process.env.NODE_ENV !== 'production') {
-  const PORT = process.env.PORT || 5000;
-  app.listen(PORT, () => {
-    console.log(`🚀 Server running on port ${PORT}`);
-  });
-}
+// Always start server (for Railway, Render, Heroku)
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+  console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+});
