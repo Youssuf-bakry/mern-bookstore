@@ -3,31 +3,47 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import bookRoutes from './routes/books.js';
+import authRoutes from './routes/auth.js';
 
 dotenv.config();
+
 const app = express();
-// In your server.js
-import authRoutes, { verifyToken, requireAdmin } from './routes/auth.js';
 
-app.use('/api/auth', authRoutes);
-
-// Protect admin routes
-app.use('/api/books/upload', verifyToken, requireAdmin);
-app.delete('/api/books/:id', verifyToken, requireAdmin);
-// Enhanced CORS configuration
+// Middleware
 app.use(cors({
-  origin: 'http://localhost:5173',
-  credentials: true,
-  exposedHeaders: ['Content-Length', 'Content-Type', 'Content-Disposition']
+  origin: process.env.NODE_ENV === 'production' 
+    ? ['https://your-app-name.vercel.app'] 
+    : ['http://localhost:5173'],
+  credentials: true
 }));
 
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('📦 MongoDB connected'))
-  .catch((err) => console.error(err));
+// MongoDB connection
+if (!mongoose.connections[0].readyState) {
+  mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+}
 
+// Routes
 app.use('/api/books', bookRoutes);
+app.use('/api/auth', authRoutes);
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+// Health check
+app.get('/api/health', (req, res) => {
+  res.json({ message: 'Server is running!', timestamp: new Date().toISOString() });
+});
+
+// Always export for Vercel (unconditional)
+export default app;
+
+// Only start server in development
+if (process.env.NODE_ENV !== 'production') {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running on port ${PORT}`);
+  });
+}

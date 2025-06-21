@@ -19,7 +19,7 @@ function Library() {
     if (hasFetched.current) return;
     hasFetched.current = true;
 
-    fetch('/api/books')
+    fetch(`${config.API_BASE_URL}/api/books`)
       .then(res => res.json())
       .then(data => {
         setBooks(data);
@@ -39,7 +39,7 @@ function Library() {
       setDownloading(bookId);
       
       // Use proxy URL instead of direct backend URL
-      const response = await fetch(`/api/books/${bookId}`, {
+      const response = await fetch(`${config.API_BASE_URL}/api/books/${bookId}`, {
         method: 'GET',
         headers: { 'Accept': 'application/pdf' },
       });

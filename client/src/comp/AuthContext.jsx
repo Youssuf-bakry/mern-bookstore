@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
+import config from './config.js';
 
 const AuthContext = createContext();
 
@@ -29,20 +30,33 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (username, password) => {
-    // Simple hardcoded admin check (replace with real API call in production)
-    if (username === 'admin' && password === 'admin123') {
-      const userData = {
-        id: 1,
-        username: 'admin',
-        role: 'admin',
-        loginTime: new Date().toISOString()
-      };
+    try {
+      console.log('Attempting login with:', { username, password: '***' });
       
-      setUser(userData);
-      localStorage.setItem('bookstore_user', JSON.stringify(userData));
-      return { success: true };
-    } else {
-      return { success: false, error: 'Invalid credentials' };
+      // SECURE: Send credentials to backend for validation
+      const response = await fetch(`${config.API_BASE_URL}/api/auth/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password })
+      });
+
+      console.log('Response status:', response.status);
+      const data = await response.json();
+      console.log('Response data:', data);
+
+      if (data.success) {
+        const userData = data.user;
+        setUser(userData);
+        localStorage.setItem('bookstore_user', JSON.stringify(userData));
+        return { success: true };
+      } else {
+        return { success: false, error: data.error || 'Login failed' };
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      return { success: false, error: 'Network error. Please try again.' };
     }
   };
 
