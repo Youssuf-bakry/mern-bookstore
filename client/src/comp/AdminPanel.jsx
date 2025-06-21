@@ -462,7 +462,7 @@ function AdminPanel() {
                           onClick={() => handleEdit(book)}
                           title="Edit book"
                         >
-                          ✏️
+                          ✏️ Edit
                         </button>
                         <button 
                           className="delete-btn"
