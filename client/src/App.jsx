@@ -126,15 +126,21 @@ function Library() {
               <p>Try adjusting your search terms</p>
             </div>
           ) : (
-            filteredBooks.map(book => (
-              <CardComponent
-                key={book._id}
-                title={book.title}
-                description={`by ${book.author}${book.pages ? ` • ${book.pages} pages` : ''} • PDF Format`}
-                onDownload={() => handleDownload(book._id, book.title)}
-                isDownloading={downloading === book._id}
-              />
-            ))
+       filteredBooks.map(book => (
+  <CardComponent
+    key={book._id}
+    title={book.title}
+    description={
+      <>
+        by {book.author}
+        <br />
+        {book.pages && `${book.pages} pages • `}PDF Format
+      </>
+    }
+    onDownload={() => handleDownload(book._id, book.title)}
+    isDownloading={downloading === book._id}
+  />
+))
           )}
         </div>
 
