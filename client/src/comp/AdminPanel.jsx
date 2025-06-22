@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import BooksTable from './BooksTable';
+import BooksTable from './BooksTable.jsx';
 import './AdminPanel.css';
 
 function AdminPanel() {
