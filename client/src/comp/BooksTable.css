@@ -1,0 +1,229 @@
+.books-table-container {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  overflow-x: auto;
+}
+
+.books-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.books-table thead {
+  background: #f8fafc;
+}
+
+.books-table th {
+  padding: 1rem 1.5rem;
+  text-align: left;
+  font-weight: 600;
+  color: #374151;
+  border-bottom: 2px solid #e5e7eb;
+  white-space: nowrap;
+}
+
+.books-table td {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #f3f4f6;
+  vertical-align: middle;
+}
+
+.books-table tbody tr:hover {
+  background: #f9fafb;
+}
+
+.books-table tbody tr.editing-row {
+  background: #f0f9ff;
+}
+
+.book-title {
+  font-weight: 600;
+  color: #1f2937;
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.book-author {
+  color: #6b7280;
+}
+
+.book-pages {
+  color: #4b5563;
+  text-align: center;
+}
+
+.book-date {
+  color: #9ca3af;
+  font-size: 0.8rem;
+}
+
+/* Edit inputs */
+.edit-input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 2px solid #3b82f6;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  background: white;
+  outline: none;
+}
+
+.edit-input:focus {
+  border-color: #1d4ed8;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.edit-input-small {
+  max-width: 80px;
+}
+
+/* Action buttons */
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.edit-btn, .save-btn, .cancel-btn, .delete-btn {
+  padding: 0.375rem 0.75rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.edit-btn {
+  background: #3b82f6;
+  color: white;
+}
+
+.edit-btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.save-btn {
+  background: #10b981;
+  color: white;
+}
+
+.save-btn:hover {
+  background: #059669;
+  transform: translateY(-1px);
+}
+
+.cancel-btn {
+  background: #6b7280;
+  color: white;
+}
+
+.cancel-btn:hover {
+  background: #4b5563;
+  transform: translateY(-1px);
+}
+
+.delete-btn {
+  background: #ef4444;
+  color: white;
+}
+
+.delete-btn:hover {
+  background: #dc2626;
+  transform: translateY(-1px);
+}
+
+/* No books state */
+.no-books {
+  text-align: center;
+  padding: 3rem;
+  color: #6b7280;
+  background: white;
+  border-radius: 12px;
+}
+
+.no-books-icon {
+  font-size: 4rem;
+  display: block;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .books-table-container {
+    border-radius: 0;
+  }
+  
+  .books-table {
+    font-size: 0.8rem;
+  }
+  
+  .books-table th,
+  .books-table td {
+    padding: 0.75rem 0.5rem;
+  }
+  
+  .book-title {
+    max-width: 150px;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  
+  .edit-btn, .save-btn, .cancel-btn, .delete-btn {
+    font-size: 0.7rem;
+    padding: 0.25rem 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .books-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  
+  .books-table thead,
+  .books-table tbody,
+  .books-table th,
+  .books-table td,
+  .books-table tr {
+    display: block;
+  }
+  
+  .books-table thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+  
+  .books-table tr {
+    border: 1px solid #e5e7eb;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    background: white;
+    padding: 1rem;
+  }
+  
+  .books-table td {
+    border: none;
+    padding: 0.5rem 0;
+    text-align: left;
+    white-space: normal;
+  }
+  
+  .books-table td:before {
+    content: attr(data-label) ": ";
+    font-weight: bold;
+    color: #374151;
+  }
+}

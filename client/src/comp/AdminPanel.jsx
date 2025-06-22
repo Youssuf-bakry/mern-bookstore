@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
+import BooksTable from './BooksTable';
 import './AdminPanel.css';
 
 function AdminPanel() {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
-  const [editing, setEditing] = useState(null); // Track which book is being edited
-  const [editForm, setEditForm] = useState({ title: '', author: '', pages: '' }); // Edit form data
   const [formData, setFormData] = useState({
     title: '',
     author: '',
@@ -16,8 +15,6 @@ function AdminPanel() {
   const [dragActive, setDragActive] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [message, setMessage] = useState({ type: '', text: '' });
-
-  console.log('Current editing state:', editing); // Debug log
 
   useEffect(() => {
     fetchBooks();
@@ -485,4 +482,5 @@ function AdminPanel() {
     </div>
   );
 }
-  export default AdminPanel;
+
+export default AdminPanel;
