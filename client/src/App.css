@@ -3,12 +3,25 @@
   padding: 0;
   box-sizing: border-box;
 }
-
+:root {
+  /* Arabic Theme Colors */
+  --primary-arabic:#07296d;
+  --secondary-arabic: #ffffff;
+  --accent-arabic: #57c4e5;
+  --bg-arabic: #282c34;
+  --text-arabic: #f1f1f1;
+  
+  /* Common Arabic UI Colors */
+  --islamic-green: #009000;
+  --islamic-gold: #FFD700;
+}
 body {
   direction: rtl;
   text-align: center;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+    /* background: linear-gradient(135deg, var(--primary-arabic) 50%, var(--secondary-arabic) 50%); */
+  background-color: var(--primary-arabic);
   min-height: 100vh;
   color: #333;
 }
@@ -57,7 +70,7 @@ input, textarea, select {
 /* Navigation Styles */
 .navigation {
   /* background: rgba(255, 255, 255, 0.1); */
-  background: #07296d;
+  background: var(--primary-arabic);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   padding: 1rem 0;
@@ -124,15 +137,13 @@ input, textarea, select {
 
 /* Header Styles */
 .header {
-  /* background: rgba(255, 255, 255, 0.1); */
-  /* background: #1c449b; */
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);;
-
+ 
+background: var(--secondary-arabic);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   padding: 2rem 0;
   text-align: center;
-  color: white;
+  color: black;
 }
 
 .header-content {

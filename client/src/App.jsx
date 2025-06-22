@@ -102,7 +102,7 @@ function Library() {
           <div className="search-container">
             <input
               type="text"
-              placeholder="Search books or authors..."
+              placeholder="ابحث عن كتاب أو مؤلف..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="search-input"
@@ -229,7 +229,7 @@ function App() {
             </Routes>
           </div>
          <footer className="footer">
-  <p style={{ textAlign: 'center', margin: '0', padding: '10px 0', backgroundColor: '#282c34', color: 'white' }}>
+  <p >
     &copy; تم تطوير هذا الموقع بواسطة يوسف بكري
     <a 
       href="www.linkedin.com/in/youssuf-bakry" 
