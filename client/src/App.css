@@ -5,12 +5,45 @@
 }
 
 body {
+  direction: rtl;
+  text-align: center;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   min-height: 100vh;
   color: #333;
 }
+/* for arabic  
+ */
+ /* Fix common RTL issues */
+* {
+  /* Flip margins and paddings */
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+}
 
+/* Flip flexbox layouts */
+.admin-panel .form-row,
+.books-table .table-row,
+.action-buttons {
+  flex-direction: row-reverse;
+}
+
+/* Adjust text inputs */
+input, textarea, select {
+  text-align: right;
+  direction: rtl;
+}
+
+/* Flip icons/buttons that should remain LTR */
+.edit-btn, .delete-btn, .upload-btn {
+  direction: ltr;
+}
+
+/* Adjust table alignment */
+.books-table th,
+.books-table td {
+  text-align: right;
+}
 .app {
   min-height: 100vh;
   display: flex;
@@ -23,7 +56,8 @@ body {
 
 /* Navigation Styles */
 .navigation {
-  background: rgba(255, 255, 255, 0.1);
+  /* background: rgba(255, 255, 255, 0.1); */
+  background: #07296d;
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   padding: 1rem 0;
@@ -90,7 +124,10 @@ body {
 
 /* Header Styles */
 .header {
-  background: rgba(255, 255, 255, 0.1);
+  /* background: rgba(255, 255, 255, 0.1); */
+  /* background: #1c449b; */
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);;
+
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   padding: 2rem 0;

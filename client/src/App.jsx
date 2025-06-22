@@ -93,7 +93,7 @@ function Library() {
             <span className="title-icon">📚</span>
           مكتبة الدكتور رؤوف شلبي
           </h1>
-          <p className="subtitle">Discover and download your favorite books</p>
+          <p className="subtitle">مع درر مختارة من مصنفات علماءنا المعاصرين</p>
         </div>
       </header>
 
@@ -113,7 +113,7 @@ function Library() {
             {searchTerm ? (
               <span>{filteredBooks.length} of {books.length} books</span>
             ) : (
-              <span>{books.length} books available</span>
+              <span> متاح إلى الآن   {books.length} كتابا</span>
             )}
           </div>
         </div>
@@ -186,9 +186,10 @@ function Navigation() {
           {/* Show login/logout based on auth status */}
           {user ? (
             <div className="nav-user">
-              <span className="nav-welcome">👤 {user.username}</span>
+              {/* <span className="nav-welcome">👤 {user.username}</span> */}
               <button onClick={logout} className="nav-logout">
-                Logout
+                <span className="nav-link-icon">🚪</span>
+                تسجيل الخروج
               </button>
             </div>
           ) : (
@@ -227,9 +228,27 @@ function App() {
               />
             </Routes>
           </div>
-          <footer className="footer">
-            <p>&copy; 2025 Digital Library. Built with React & Express.</p>
-          </footer>
+         <footer className="footer">
+  <p style={{ textAlign: 'center', margin: '0', padding: '10px 0', backgroundColor: '#282c34', color: 'white' }}>
+    &copy; تم تطوير هذا الموقع بواسطة يوسف بكري
+    <a 
+      href="www.linkedin.com/in/youssuf-bakry" 
+      target="_blank" 
+      rel="noopener noreferrer"
+      style={{ marginRight: '8px', color: '#0077B5' }}
+    >
+      <svg 
+        width="16" 
+        height="16" 
+        viewBox="0 0 24 24" 
+        fill="WHITE"
+        style={{ verticalAlign: 'middle' }}
+      >
+        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+      </svg>
+    </a>
+  </p>
+</footer>
         </div>
       </Router>
     </AuthProvider>
