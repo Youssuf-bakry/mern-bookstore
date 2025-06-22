@@ -538,4 +538,19 @@ background: var(--secondary-arabic);
   .book-icon {
     align-self: center;
   }
+  .linkedin-link {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 8px;
+  color: #0077B5;
+  transition: color 0.3s ease;
+}
+
+.linkedin-link:hover {
+  color: #005885;
+}
+
+.linkedin-link svg {
+  vertical-align: middle;
+}
 }

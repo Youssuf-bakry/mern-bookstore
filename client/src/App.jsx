@@ -232,7 +232,7 @@ function App() {
   <p >
     &copy; تم تطوير هذا الموقع بواسطة يوسف بكري
     <a 
-      href="www.linkedin.com/in/youssuf-bakry" 
+      href="https://www.linkedin.com/in/youssuf-bakry" 
       target="_blank" 
       rel="noopener noreferrer"
       style={{ marginRight: '8px', color: '#0077B5' }}
