@@ -538,19 +538,29 @@ background: var(--secondary-arabic);
   .book-icon {
     align-self: center;
   }
-  .linkedin-link {
+
+}
+.footer {
+  background: var(--accent-arabic);
+  padding: 2rem 0;
+  color: black;
+  text-align: center;
+   font-size: larger;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+  .footer p{
   display: inline-flex;
   align-items: center;
-  margin-right: 8px;
-  color: #0077B5;
+  /* margin-right: 8px; */
+ 
+  color: black;
   transition: color 0.3s ease;
 }
 
-.linkedin-link:hover {
-  color: #005885;
+.footer a:hover {
+  color: var(--primary-arabic);
 }
 
-.linkedin-link svg {
+.footer svg {
   vertical-align: middle;
-}
 }

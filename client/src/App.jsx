@@ -238,8 +238,8 @@ function App() {
       style={{ marginRight: '8px', color: '#0077B5' }}
     >
       <svg 
-        width="16" 
-        height="16" 
+        width="23" 
+        height="23" 
         viewBox="0 0 24 24" 
         fill="WHITE"
         style={{ verticalAlign: 'middle' }}
