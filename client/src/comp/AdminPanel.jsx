@@ -157,57 +157,6 @@ function AdminPanel() {
     }
   };
 
-  const handleEdit = (book) => {
-    setEditing(book._id);
-    setEditForm({
-      title: book.title,
-      author: book.author,
-      pages: book.pages || ''
-    });
-  };
-
-  const handleCancelEdit = () => {
-    setEditing(null);
-    setEditForm({ title: '', author: '', pages: '' });
-  };
-
-  const handleSaveEdit = async (bookId) => {
-    try {
-      const response = await fetch(`https://mern-bookstore-backend-amt0.onrender.com/api/books/${bookId}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          title: editForm.title.trim(),
-          author: editForm.author.trim(),
-          pages: editForm.pages ? parseInt(editForm.pages) : undefined
-        })
-      });
-
-      if (response.ok) {
-        showMessage('success', 'Book updated successfully');
-        setEditing(null);
-        setEditForm({ title: '', author: '', pages: '' });
-        fetchBooks(); // Refresh the books list
-      } else {
-        const error = await response.json();
-        showMessage('error', error.error || 'Update failed');
-      }
-    } catch (err) {
-      console.error('Update error:', err);
-      showMessage('error', 'Update failed: ' + err.message);
-    }
-  };
-
-  const handleEditInputChange = (e) => {
-    const { name, value } = e.target;
-    setEditForm(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
   const handleDelete = async (bookId, title) => {
     if (!window.confirm(`Are you sure you want to delete "${title}"?`)) {
       return;
@@ -376,106 +325,13 @@ function AdminPanel() {
           
           {loading ? (
             <div className="loading">Loading books...</div>
-          ) : books.length === 0 ? (
-            <div className="no-books">
-              <span className="no-books-icon">📚</span>
-              <p>No books uploaded yet</p>
-            </div>
           ) : (
-            <div className="books-table">
-              <div className="table-header">
-                <div>Title</div>
-                <div>Author</div>
-                <div>Pages</div>
-                <div>Uploaded</div>
-                <div>Actions</div>
-              </div>
-              {books.map(book => (
-                <div key={book._id} className="table-row">
-                  {editing === book._id ? (
-                    // Edit mode
-                    <>
-                      <div className="book-title">
-                        <input
-                          type="text"
-                          name="title"
-                          value={editForm.title}
-                          onChange={handleEditInputChange}
-                          className="edit-input"
-                          placeholder="Book title"
-                        />
-                      </div>
-                      <div className="book-author">
-                        <input
-                          type="text"
-                          name="author"
-                          value={editForm.author}
-                          onChange={handleEditInputChange}
-                          className="edit-input"
-                          placeholder="Author name"
-                        />
-                      </div>
-                      <div className="book-pages">
-                        <input
-                          type="number"
-                          name="pages"
-                          value={editForm.pages}
-                          onChange={handleEditInputChange}
-                          className="edit-input edit-input-small"
-                          placeholder="Pages"
-                          min="1"
-                        />
-                      </div>
-                      <div className="book-date">
-                        {new Date(book.createdAt).toLocaleDateString()}
-                      </div>
-                      <div className="book-actions">
-                        <button 
-                          className="save-btn"
-                          onClick={() => handleSaveEdit(book._id)}
-                          title="Save changes"
-                        >
-                          ✅
-                        </button>
-                        <button 
-                          className="cancel-btn"
-                          onClick={handleCancelEdit}
-                          title="Cancel editing"
-                        >
-                          ❌
-                        </button>
-                      </div>
-                    </>
-                  ) : (
-                    // View mode
-                    <>
-                      <div className="book-title">{book.title}</div>
-                      <div className="book-author">{book.author}</div>
-                      <div className="book-pages">{book.pages || 'N/A'}</div>
-                      <div className="book-date">
-                        {new Date(book.createdAt).toLocaleDateString()}
-                      </div>
-                      <div className="book-actions">
-                        <button 
-                          className="edit-btn"
-                          onClick={() => handleEdit(book)}
-                          title="Edit book"
-                        >
-                          ✏️
-                        </button>
-                        <button 
-                          className="delete-btn"
-                          onClick={() => handleDelete(book._id, book.title)}
-                          title="Delete book"
-                        >
-                          🗑️
-                        </button>
-                      </div>
-                    </>
-                  )}
-                </div>
-              ))}
-            </div>
+            <BooksTable 
+              books={books}
+              onDelete={handleDelete}
+              onUpdate={fetchBooks}
+              showMessage={showMessage}
+            />
           )}
         </section>
       </div>
