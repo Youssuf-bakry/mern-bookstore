@@ -132,9 +132,9 @@ function Library() {
     title={book.title}
     description={
       <>
-        by {book.author}
+        صنفه {book.author}
         <br />
-        {book.pages && `${book.pages} pages • `}PDF Format
+        { book.pages &&  `${book.pages}    صفحة` }
       </>
     }
     onDownload={() => handleDownload(book._id, book.title)}

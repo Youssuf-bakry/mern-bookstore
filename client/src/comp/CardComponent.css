@@ -1,5 +1,5 @@
 .card-container {
-  background: white;
+  background:var(--brown--primary);
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
@@ -16,7 +16,7 @@
 
 .card-container:hover {
   box-shadow: 0 20px 25px rgba(0, 0, 0, 0.15);
-  border-color: #d1d5db;
+  border-color: var(--islamic-gold);
   transform: translateY(-2px);
 }
 
@@ -28,19 +28,21 @@
 }
 
 .card-title {
+  font-family: var(--font-tajawal);
   font-size: 1.25rem;
   font-weight: 700;
-  color: #1f2937;
+  color: var(--light--primary);
   margin-bottom: 0.5rem;
   line-height: 1.3;
-  border-right: 4px solid #6366f1;
+  border-right: 4px solid var(--islamic-gold);
   padding-left: 0.75rem;
   margin-right: 0;
 }
 
 .card-description {
-  color: #6b7280;
-  font-size: 0.875rem;
+  color: var(--light--primary);
+  font-family: var(--font-lateef);
+  font-size: 1.3rem;
   margin-bottom: .25rem;
   padding-left: 0.75rem;
   line-height: 1.4;
@@ -53,8 +55,8 @@
 .card-button {
   width: 100%;
   padding: 0.75rem 1.5rem;
-  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
-  color: white;
+  background: var(--light--primary);
+  color:var(--brown--primary);
   border: none;
   border-radius: 8px;
   font-size: 0.875rem;
@@ -66,21 +68,21 @@
 }
 
 .card-button:hover:not(:disabled) {
-  background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
+  background: var(--islamic-gold);
   transform: translateY(-1px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  border-color: #6366f1;
+  border-color: var(--islamic-gold);
 }
 
 .card-button:disabled {
-  background: #9ca3af;
+  background: var(--dark--primary);
   cursor: not-allowed;
   transform: none;
   border-color: transparent;
 }
 
 .card-button.downloading {
-  background: #9ca3af;
+  background: var(--dark--secondary);
 }
 
 .button-content {
