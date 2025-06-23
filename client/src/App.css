@@ -112,9 +112,12 @@ input, textarea, select {
 .nav-links {
   display: flex;
   gap: 1rem;
+  
+  
 }
 
 .nav-link {
+  background: var(--brown--primary);
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -124,7 +127,6 @@ input, textarea, select {
   border-radius: 25px;
   transition: all 0.3s ease;
   font-weight: 500;
-  background: rgba(255, 255, 255, 0.1);
 }
 
 .nav-link:hover {
@@ -135,12 +137,13 @@ input, textarea, select {
 
 .nav-link.active {
   color: white;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgb(179, 28, 28);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .nav-link-icon {
   font-size: 1.1rem;
+  
 }
 
 /* Header Styles */
