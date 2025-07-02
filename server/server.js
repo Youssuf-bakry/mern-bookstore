@@ -13,7 +13,7 @@ const app = express();
 app.use(cors({
   origin: [
     'http://localhost:5173',
-    'https://brilliant-naiad-315200.netlify.app', // Your Netlify URL
+    'https://raoof-shalaby.netlify.app/', // Your Netlify URL
     'https://mern-bookstore-backend-amt0.onrender.com' // Your backend URL
   ],
   credentials: true,
