@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (username, password) => {
     try {
-      console.log('Attempting login with:', { username, password: '***' });
+      
       
       // SECURE: Send credentials to backend for validation
       const response = await fetch('https://mern-bookstore-backend-amt0.onrender.com/api/auth/login', {
