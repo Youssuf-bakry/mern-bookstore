@@ -37,10 +37,7 @@ router.get('/', async (req, res) => {
     const total = await Book.countDocuments();
 
     // Fetch books for this page
-    const books = await Book.find()
-      .sort({ createdAt: -1 })
-      .skip(skip)
-      .limit(limit);
+    const books = await Book.find()?.sort({ createdAt: -1 })?.skip(skip)?.limit(limit);
 
     res.json({
       books,
