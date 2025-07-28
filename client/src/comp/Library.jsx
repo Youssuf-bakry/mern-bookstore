@@ -1,5 +1,3 @@
-// Update your Library component in App.jsx
-
 function Library() {
   const [books, setBooks] = useState([]);
   const [downloading, setDownloading] = useState(null);
@@ -161,3 +159,5 @@ function Library() {
     </>
   );
 }
+
+export default Library;
