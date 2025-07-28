@@ -1,33 +1,58 @@
-import { useEffect, useRef, useState } from "react";
-import LazyCardComponent from "./LazyCardComponent";
+// Update your Library component in App.jsx
 
-// Library Component with Simple Lazy Loading
 function Library() {
   const [books, setBooks] = useState([]);
   const [downloading, setDownloading] = useState(null);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [totalBooks, setTotalBooks] = useState(0);
   const hasFetched = useRef(false);
 
   useEffect(() => {
     if (hasFetched.current) return;
     hasFetched.current = true;
-
-    // Load all books at once (but render them lazily)
-    fetch('https://mern-bookstore-backend-amt0.onrender.com/api/books')
-      .then(res => res.json())
-      .then(data => {
-        setBooks(data);
-        console.log('Books loaded:', data.length);
-      })
-      .catch(err => {
-        console.error('Error loading books:', err);
-        alert('Failed to load books. Please try again.');
-      })
-      .finally(() => setLoading(false));
+    loadBooks(1); // Load first page
   }, []);
 
+  const loadBooks = async (page = 1) => {
+    try {
+      setLoading(true);
+      
+      // Use pagination parameters - remove limit to get all books at once
+      const response = await fetch(`https://mern-bookstore-backend-amt0.onrender.com/api/books?page=1&limit=5`);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+      
+      const data = await response.json();
+      
+      console.log('API Response:', data); // Debug log
+      
+      // Handle the new response format
+      if (data && data.books && Array.isArray(data.books)) {
+        setBooks(data.books);
+        setTotalBooks(data.total || data.books.length);
+        setTotalPages(data.pages || 1);
+        setCurrentPage(data.page || 1);
+        console.log('✅ Books loaded successfully:', data.books.length);
+      } else {
+        console.error('❌ Unexpected response format:', data);
+        setBooks([]);
+      }
+      
+    } catch (err) {
+      console.error('Error loading books:', err);
+      setBooks([]);
+      alert('Failed to load books. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  // Keep your existing handleDownload function unchanged
   const handleDownload = async (bookId, title) => {
     if (downloading === bookId) return;
 
@@ -66,9 +91,10 @@ function Library() {
     }
   };
 
+  
   const filteredBooks = books.filter(book =>
-    book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    book.author.toLowerCase().includes(searchTerm.toLowerCase())
+    book.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    book.author?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   if (loading) {
@@ -106,9 +132,9 @@ function Library() {
           </div>
           <div className="stats">
             {searchTerm ? (
-              <span>{filteredBooks.length} of {books.length} books</span>
+              <span>{filteredBooks.length} of {totalBooks} books</span>
             ) : (
-              <span> متاح إلى الآن   {books.length} كتابا</span>
+              <span> متاح إلى الآن   {totalBooks} كتابا</span>
             )}
           </div>
         </div>
@@ -135,4 +161,3 @@ function Library() {
     </>
   );
 }
-export default Library;
