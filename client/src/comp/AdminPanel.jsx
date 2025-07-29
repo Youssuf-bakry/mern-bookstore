@@ -24,7 +24,7 @@ function AdminPanel() {
     try {
       const response = await fetch('https://mern-bookstore-backend-amt0.onrender.com/api/books');
       const data = await response.json();
-      setBooks(data);
+      setBooks(data.books);
     } catch (err) {
       console.error('Error fetching books:', err);
       showMessage('error', 'Failed to load books');
