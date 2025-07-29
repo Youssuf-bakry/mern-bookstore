@@ -1,79 +1,63 @@
-import { useEffect, useRef, useState } from "react";
-import  LazyCardComponent from "./LazyCardComponent";
+import { useEffect, useState } from "react";
+import LazyCardComponent from "./LazyCardComponent";
+
 function Library() {
   const [books, setBooks] = useState([]);
   const [downloading, setDownloading] = useState(null);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [totalBooks, setTotalBooks] = useState(0);
-  const hasFetched = useRef(false);
-
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [total, setTotal] = useState(0);
+  const limit = 10; 
   useEffect(() => {
+<<<<<<< HEAD
     if (hasFetched.current) return;
     hasFetched.current = true;
     loadBooks(1); // 
   }, []);
+=======
+    fetchBooks(page);
+    // eslint-disable-next-line
+  }, [page]);
+>>>>>>> b670c3f8dda2b066ffc324c3e025ceb232d73bca
 
-  const loadBooks = async (page = 1) => {
+  const fetchBooks = async (pageNum) => {
+    setLoading(true);
     try {
-      setLoading(true);
-      
-      // Use pagination parameters - remove limit to get all books at once
-      const response = await fetch(`https://mern-bookstore-backend-amt0.onrender.com/api/books?page=1&limit=5`);
-      
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      }
-      
-      const data = await response.json();
-      
-      console.log('API Response:', data); // Debug log
-      
-      // Handle the new response format
-      if (data && data.books && Array.isArray(data.books)) {
+      const res = await fetch(`https://mern-bookstore-backend-amt0.onrender.com/api/books?page=${pageNum}&limit=${limit}`);
+      const data = await res.json();
+      if (pageNum === 1) {
         setBooks(data.books);
-        setTotalBooks(data.total || data.books.length);
-        setTotalPages(data.pages || 1);
-        setCurrentPage(data.page || 1);
-        console.log('✅ Books loaded successfully:', data.books.length);
       } else {
-        console.error('❌ Unexpected response format:', data);
-        setBooks([]);
+        setBooks(prev => [...prev, ...data.books]);
       }
-      
+      setTotal(data.total);
+      setHasMore(pageNum < data.pages);
     } catch (err) {
       console.error('Error loading books:', err);
-      setBooks([]);
       alert('Failed to load books. Please try again.');
     } finally {
       setLoading(false);
     }
   };
 
+<<<<<<< HEAD
+=======
+  const handleLoadMore = () => setPage(prev => prev + 1);
+>>>>>>> b670c3f8dda2b066ffc324c3e025ceb232d73bca
 
   const handleDownload = async (bookId, title) => {
     if (downloading === bookId) return;
-
     try {
       setDownloading(bookId);
-      
       const response = await fetch(`https://mern-bookstore-backend-amt0.onrender.com/api/books/${bookId}`, {
         method: 'GET',
         headers: { 'Accept': 'application/pdf' },
       });
-      
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
       const blob = await response.blob();
-      
-      if (blob.size === 0) {
-        throw new Error('Downloaded file is empty');
-      }
-      
+      if (blob.size === 0) throw new Error('Downloaded file is empty');
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
@@ -82,7 +66,6 @@ function Library() {
       a.click();
       a.remove();
       window.URL.revokeObjectURL(url);
-      
     } catch (err) {
       console.error('Download error:', err);
       alert('Download failed: ' + err.message);
@@ -91,60 +74,44 @@ function Library() {
     }
   };
 
-  
   const filteredBooks = books.filter(book =>
-    book.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    book.author?.toLowerCase().includes(searchTerm.toLowerCase())
+    book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    book.author.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
-  if (loading) {
-    return (
-      <div className="loading-container">
-        <div className="loading-spinner"></div>
-        <p>جاري تحميل المكتبة ...</p>
-      </div>
-    );
-  }
 
   return (
     <>
-      <header className="header">
-        <div className="header-content">
-          <h1 className="title">
-            <span className="title-icon">📚</span>
-            مكتبة الدكتور رؤوف شلبي
-          </h1>
-          <p className="subtitle">مع درر مختارة من مصنفات علماءنا المعاصرين</p>
-        </div>
+      <header className="library-header">
+        <h1>📚 مكتبة الكتب الرقمية</h1>
+        <p>ابحث عن كتبك المفضلة أو تصفح أحدث الإضافات</p>
       </header>
-
+      <section className="search-section">
+        <input
+          type="text"
+          className="search-input"
+          placeholder="ابحث باسم الكتاب أو المؤلف..."
+          value={searchTerm}
+          onChange={e => {
+            setSearchTerm(e.target.value);
+            setPage(1); 
+          }}
+        />
+        <span className="search-count">
+          {filteredBooks.length} / {total} كتاب
+        </span>
+      </section>
       <main className="main">
-        <div className="search-section">
-          <div className="search-container">
-            <input
-              type="text"
-              placeholder="ابحث عن كتاب أو مؤلف..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="search-input"
-            />
-            <span className="search-icon">🔍</span>
-          </div>
-          <div className="stats">
-            {searchTerm ? (
-              <span>{filteredBooks.length} of {totalBooks} books</span>
-            ) : (
-              <span> متاح إلى الآن   {totalBooks} كتابا</span>
-            )}
-          </div>
-        </div>
-
         <div className="books-grid">
           {filteredBooks.length === 0 ? (
             <div className="no-results">
               <span className="no-results-icon">📖</span>
+<<<<<<< HEAD
               <h3>لا توجد نتائج في هذه الصفحة </h3>
               <p>جرب صفحة أخرى أو تأكد من البحث</p>
+=======
+              <h3>لا توجد نتائج</h3>
+              <p>جرّب تعديل كلمات البحث</p>
+>>>>>>> b670c3f8dda2b066ffc324c3e025ceb232d73bca
             </div>
           ) : (
             filteredBooks.map(book => (
@@ -157,11 +124,20 @@ function Library() {
             ))
           )}
         </div>
+<<<<<<< HEAD
          {hasMore && !loading && (
           <button className="skeleton-button" onClick={handleLoadMore}>
             تحميل المزيد
           </button>
         )}
+=======
+        {hasMore && !loading && (
+          <button className="load-more-btn" onClick={handleLoadMore}>
+            تحميل المزيد
+          </button>
+        )}
+        {loading && <div className="loading-spinner"></div>}
+>>>>>>> b670c3f8dda2b066ffc324c3e025ceb232d73bca
       </main>
     </>
   );
