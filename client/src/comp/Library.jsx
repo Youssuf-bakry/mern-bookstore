@@ -11,16 +11,12 @@ function Library() {
   const [total, setTotal] = useState(0);
   const limit = 10; 
   useEffect(() => {
-<<<<<<< HEAD
     if (hasFetched.current) return;
     hasFetched.current = true;
     loadBooks(1); // 
   }, []);
-=======
-    fetchBooks(page);
-    // eslint-disable-next-line
-  }, [page]);
->>>>>>> b670c3f8dda2b066ffc324c3e025ceb232d73bca
+
+
 
   const fetchBooks = async (pageNum) => {
     setLoading(true);
@@ -42,10 +38,8 @@ function Library() {
     }
   };
 
-<<<<<<< HEAD
-=======
+
   const handleLoadMore = () => setPage(prev => prev + 1);
->>>>>>> b670c3f8dda2b066ffc324c3e025ceb232d73bca
 
   const handleDownload = async (bookId, title) => {
     if (downloading === bookId) return;
@@ -105,13 +99,10 @@ function Library() {
           {filteredBooks.length === 0 ? (
             <div className="no-results">
               <span className="no-results-icon">📖</span>
-<<<<<<< HEAD
               <h3>لا توجد نتائج في هذه الصفحة </h3>
               <p>جرب صفحة أخرى أو تأكد من البحث</p>
-=======
               <h3>لا توجد نتائج</h3>
               <p>جرّب تعديل كلمات البحث</p>
->>>>>>> b670c3f8dda2b066ffc324c3e025ceb232d73bca
             </div>
           ) : (
             filteredBooks.map(book => (
@@ -124,20 +115,12 @@ function Library() {
             ))
           )}
         </div>
-<<<<<<< HEAD
-         {hasMore && !loading && (
-          <button className="skeleton-button" onClick={handleLoadMore}>
-            تحميل المزيد
-          </button>
-        )}
-=======
         {hasMore && !loading && (
-          <button className="load-more-btn" onClick={handleLoadMore}>
+          <button className="skeleton-button" onClick={handleLoadMore}>l
             تحميل المزيد
           </button>
         )}
         {loading && <div className="loading-spinner"></div>}
->>>>>>> b670c3f8dda2b066ffc324c3e025ceb232d73bca
       </main>
     </>
   );
