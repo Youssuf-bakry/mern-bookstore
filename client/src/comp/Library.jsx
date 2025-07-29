@@ -13,7 +13,7 @@ function Library() {
   useEffect(() => {
     if (hasFetched.current) return;
     hasFetched.current = true;
-    loadBooks(1); // Load first page
+    loadBooks(1); // 
   }, []);
 
   const loadBooks = async (page = 1) => {
@@ -52,7 +52,7 @@ function Library() {
     }
   };
 
-  // Keep your existing handleDownload function unchanged
+
   const handleDownload = async (bookId, title) => {
     if (downloading === bookId) return;
 
@@ -143,8 +143,8 @@ function Library() {
           {filteredBooks.length === 0 ? (
             <div className="no-results">
               <span className="no-results-icon">📖</span>
-              <h3>No books found</h3>
-              <p>Try adjusting your search terms</p>
+              <h3>لا توجد نتائج في هذه الصفحة </h3>
+              <p>جرب صفحة أخرى أو تأكد من البحث</p>
             </div>
           ) : (
             filteredBooks.map(book => (
@@ -157,6 +157,11 @@ function Library() {
             ))
           )}
         </div>
+         {hasMore && !loading && (
+          <button className="skeleton-button" onClick={handleLoadMore}>
+            تحميل المزيد
+          </button>
+        )}
       </main>
     </>
   );
