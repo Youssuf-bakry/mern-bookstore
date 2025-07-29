@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import LazyCardComponent from "./LazyCardComponent";
 
 function Library() {
@@ -9,8 +9,7 @@ function Library() {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [total, setTotal] = useState(0);
-  const limit = 10; // books per page
-
+  const limit = 10; 
   useEffect(() => {
     fetchBooks(page);
     // eslint-disable-next-line
@@ -72,15 +71,32 @@ function Library() {
 
   return (
     <>
-      {/* ...header and search code unchanged... */}
+      <header className="library-header">
+        <h1>📚 مكتبة الكتب الرقمية</h1>
+        <p>ابحث عن كتبك المفضلة أو تصفح أحدث الإضافات</p>
+      </header>
+      <section className="search-section">
+        <input
+          type="text"
+          className="search-input"
+          placeholder="ابحث باسم الكتاب أو المؤلف..."
+          value={searchTerm}
+          onChange={e => {
+            setSearchTerm(e.target.value);
+            setPage(1); 
+          }}
+        />
+        <span className="search-count">
+          {filteredBooks.length} / {total} كتاب
+        </span>
+      </section>
       <main className="main">
-        {/* ...search section unchanged... */}
         <div className="books-grid">
           {filteredBooks.length === 0 ? (
             <div className="no-results">
               <span className="no-results-icon">📖</span>
-              <h3>No books found</h3>
-              <p>Try adjusting your search terms</p>
+              <h3>لا توجد نتائج</h3>
+              <p>جرّب تعديل كلمات البحث</p>
             </div>
           ) : (
             filteredBooks.map(book => (
@@ -103,4 +119,5 @@ function Library() {
     </>
   );
 }
-export default Library;
+
+export
