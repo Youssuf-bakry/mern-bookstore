@@ -11,10 +11,8 @@ function Library() {
   const [total, setTotal] = useState(0);
   const limit = 10; 
   useEffect(() => {
-    if (hasFetched.current) return;
-    hasFetched.current = true;
-    loadBooks(1); // 
-  }, []);
+        fetchBooks(page);
+  }, [page]);
 
 
 
