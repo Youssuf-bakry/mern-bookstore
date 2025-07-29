@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { LazyCardComponent } from "./LazyCardComponent";
+import  LazyCardComponent from "./LazyCardComponent";
 function Library() {
   const [books, setBooks] = useState([]);
   const [downloading, setDownloading] = useState(null);
